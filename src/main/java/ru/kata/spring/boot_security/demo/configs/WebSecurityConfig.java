@@ -48,10 +48,14 @@ II
                 //httpBasic() - куда перенаправлять неаутенифицированнных
                 // или тоже самое formLogin() - наша форма, либо стандарт спринга для регания
                 .formLogin().successHandler(successUserHandler)
+                // после формЛогина можно заменить стандартный /login через
+                // .loginProccessingurl("/mylogin")
+
                 .permitAll()
                 .and()
 
                 // этот стандартный, ведет на страничку логина
+                // стандартный вопрос спринга разлогиниться
                 .logout()
                 // а .logout().logoutSuccessurl("/") туда куда скажем
 

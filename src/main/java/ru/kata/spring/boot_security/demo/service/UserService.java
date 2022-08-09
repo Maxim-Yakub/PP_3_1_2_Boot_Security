@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import com.example.pp_3_3_1_springboot_crud.model.User;
+
+import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
 

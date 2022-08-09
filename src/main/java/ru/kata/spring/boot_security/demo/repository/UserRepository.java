@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.repository;
 
-import com.example.pp_3_3_1_springboot_crud.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
 
