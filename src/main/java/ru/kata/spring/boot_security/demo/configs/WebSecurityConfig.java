@@ -22,14 +22,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                // на / и /индекс допускаются все
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
+
+/*
+I
+также можно пустить на какую-нибудь панельку
+только по определенным ролям, f.e.:
+.antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
+если не админ и не суперадмин, то вылетит ошибка прав доступа
+*/
+
+/*
+II
+.hasAuthority и .hasAnyRole похожи
+
+*/
+
+                // а на другие запросы уже только аутентифицированные
                 .anyRequest().authenticated()
+
                 .and()
+
+                //httpBasic() - куда перенаправлять неаутенифицированнных
+                // или тоже самое formLogin() - наша форма, либо стандарт спринга для регания
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
+
+                // этот стандартный, ведет на страничку логина
                 .logout()
+                // а .logout().logoutSuccessurl("/") туда куда скажем
+
                 .permitAll();
     }
 
