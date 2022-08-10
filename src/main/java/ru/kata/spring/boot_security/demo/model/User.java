@@ -1,13 +1,16 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import lombok.Data;
+import ru.kata.spring.boot_security.demo.entity.Role;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class
+User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,43 +23,12 @@ public class User {
     @Column
     private String email;
 
-    public User() {}
+    @Column
+    private String password;
 
-    public User(String firstName, String lastName, String email) {
-        this.name = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 }

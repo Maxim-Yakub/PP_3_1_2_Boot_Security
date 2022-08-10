@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -18,36 +20,40 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
-    @Transactional
     public void save (User user) {
         repository.save(user);
     }
 
-    @Transactional
     public List<User> getAll () {
         return (List<User>) repository.findAll();
     }
 
-    @Transactional
     public User get(Long id) {
         return repository.findById(id).get();
     }
 
-    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
 
     @Transactional
-    public void update(Long id, User updatedUser){
-        User userToBeUpdated = get(id);
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setLastName(updatedUser.getLastName());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
+    public void update(User updatedUser){
+        save(updatedUser);
     }
-
-    @Transactional
     public List<User> search(String keyword) {
         return repository.search(keyword);
+    }
+
+    @Override
+    public User findUserByName(String userName) {
+        return repository.findUserByName(userName);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        User user = findUserByName(userName)
+
+        return null;
     }
 }
