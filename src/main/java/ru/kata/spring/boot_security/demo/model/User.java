@@ -17,14 +17,12 @@ User {
 
     @Column
     private String name;
-    @Column (name = "last_name")
-    private String lastName;
-
-    @Column
-    private String email;
 
     @Column
     private String password;
+
+    @Column
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "user_roles",
