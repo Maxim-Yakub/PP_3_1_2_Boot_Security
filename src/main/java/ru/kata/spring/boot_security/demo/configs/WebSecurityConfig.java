@@ -98,46 +98,46 @@ II
 //    }
 
     // аутентификация JDBC
+//    @Bean
+//    public JdbcUserDetailsManager userDetailsManager (DataSource dataSource) {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("user")
+//                        .roles("USER")
+//                        .build();
+//
+//        UserDetails admin =
+//                User.withDefaultPasswordEncoder()
+//                        .username("admin")
+//                        .password("user")
+//                        .roles("ADMIN", "USER")
+//                        .build();
+//
+//        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+//        if (userDetailsManager.userExists(user.getUsername())) {
+//            userDetailsManager.deleteUser(user.getUsername());
+//        }
+//        if (userDetailsManager.userExists(admin.getUsername())) {
+//            userDetailsManager.deleteUser(admin.getUsername());
+//        }
+//        userDetailsManager.createUser(user);
+//        userDetailsManager.createUser(admin);
+//
+//        return userDetailsManager;
+//    }
+
     @Bean
-    public JdbcUserDetailsManager userDetailsManager (DataSource dataSource) {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("user")
-                        .roles("USER")
-                        .build();
-
-        UserDetails admin =
-                User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("user")
-                        .roles("ADMIN", "USER")
-                        .build();
-
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        if (userDetailsManager.userExists(user.getUsername())) {
-            userDetailsManager.deleteUser(user.getUsername());
-        }
-        if (userDetailsManager.userExists(admin.getUsername())) {
-            userDetailsManager.deleteUser(admin.getUsername());
-        }
-        userDetailsManager.createUser(user);
-        userDetailsManager.createUser(admin);
-
-        return userDetailsManager;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        authenticationProvider.setUserDetailsService(userService);
-//        return authenticationProvider;
-//    }
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setUserDetailsService(userService);
+        return authenticationProvider;
+    }
 
 }
