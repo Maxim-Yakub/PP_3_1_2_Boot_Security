@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import ru.kata.spring.boot_security.demo.service.UserService;
+//import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.sql.DataSource;
 
@@ -22,13 +22,13 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    private UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+//
+//    private UserService userService;
+//
+//    @Autowired
+//    public void setUserService(UserService userService) {
+//        this.userService = userService;
+//    }
 
     private final SuccessUserHandler successUserHandler;
 
@@ -111,11 +111,16 @@ II
                 User.withDefaultPasswordEncoder()
                         .username("admin")
                         .password("user")
-                        .roles("ADMIN","USER")
+                        .roles("ADMIN", "USER")
                         .build();
 
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        if (userDetailsManager.userExists(user))
+        if (userDetailsManager.userExists(user.getUsername())) {
+            userDetailsManager.deleteUser(user.getUsername());
+        }
+        if (userDetailsManager.userExists(admin.getUsername())) {
+            userDetailsManager.deleteUser(admin.getUsername());
+        }
         userDetailsManager.createUser(user);
         userDetailsManager.createUser(admin);
 
