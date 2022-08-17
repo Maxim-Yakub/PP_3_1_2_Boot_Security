@@ -12,21 +12,21 @@
         <input type="text" name="keyword"/>
         <input type="submit" value="Найти"/>
     </form>
-    <h3><a href="/users/newUser">Новый пользователь</a></h3>
+    <h3><a href="/admin/newUser">Новый пользователь</a></h3>
     <table border="1" cellpadding="5">
         <tr>
             <th>ID</th>
             <th>Имя</th>
-            <th>Фамилия</th>
+            <th>Роли</th>
             <th>Почта</th>
             <th>Действие</th>
         </tr>
 
         <tr th:each="user, iterStat : ${users} ">
             <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getName()}"></td>
-            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getUsername()}"></td>
             <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getRoles()}"></td>
             <td>
                 <a th:href="@{users/{id}/edit(id=${user.getId()})}" th:text="Редактировать">user</a>
                 <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">

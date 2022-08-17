@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-//import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.sql.DataSource;
 
@@ -22,13 +22,13 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//
-//    private UserService userService;
-//
-//    @Autowired
-//    public void setUserService(UserService userService) {
-//        this.userService = userService;
-//    }
+
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     private final SuccessUserHandler successUserHandler;
 
@@ -45,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // п.4 CRUD только для админа
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
+
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
 /*
 I
@@ -127,6 +129,8 @@ II
 //        return userDetailsManager;
 //    }
 
+
+    // аутентификация DAO
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

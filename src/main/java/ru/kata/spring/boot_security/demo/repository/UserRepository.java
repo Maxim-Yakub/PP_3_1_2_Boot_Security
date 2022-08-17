@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    @Query(value="SELECT user from User user where user.name LIKE  CONCAT('%',:keyword,'%')"
-            + "OR user.email LIKE CONCAT('%',:keyword,'%')"
-            + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
+    @Query(value="SELECT user from User user where user.username LIKE  CONCAT('%',:keyword,'%')"
+            + "OR user.email LIKE CONCAT('%',:keyword,'%')")
+           // + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
     List<User> search(@Param("keyword") String keyword);
 
     // спринг сам вставит имя пользователя
