@@ -17,8 +17,8 @@
         <tr>
             <th>ID</th>
             <th>Имя</th>
-            <th>Роли</th>
             <th>Почта</th>
+            <th>Роли</th>
             <th>Действие</th>
         </tr>
 
@@ -26,7 +26,9 @@
             <td th:text="${user.getId()}"></td>
             <td th:text="${user.getUsername()}"></td>
             <td th:text="${user.getEmail()}"></td>
-            <td th:text="${user.getRoles()}"></td>
+            <td >
+                <p th:each="role : ${user.getAuthorities()}" th:text="${role.getAuthority()}"/>
+            </td>
             <td>
                 <a th:href="@{users/{id}/edit(id=${user.getId()})}" th:text="Редактировать">user</a>
                 <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
