@@ -24,10 +24,10 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/user")
-    public String user() {
-        return "user";
-    }
+//    @GetMapping("/user")
+//    public String user() {
+//        return "user";
+//    }
 
     @GetMapping("/admin")
     public String main(Model model) {

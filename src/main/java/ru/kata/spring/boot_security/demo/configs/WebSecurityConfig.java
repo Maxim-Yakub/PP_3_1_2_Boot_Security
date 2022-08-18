@@ -141,6 +141,7 @@ II
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userService);
+
         return authenticationProvider;
     }
 

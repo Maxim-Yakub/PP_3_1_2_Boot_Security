@@ -63,11 +63,13 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException(String.format("User %s не найден", username));
         }
 
+        // без имплементации юздет и грантаут
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-    }
+                user.getUsername(), user.getPassword(), user.getAuthorities());
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(r-> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
+        // без имплементации юздет и грантаут
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+//        return roles.stream().map(r-> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//    }
 }
