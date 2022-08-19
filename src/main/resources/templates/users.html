@@ -13,6 +13,8 @@
         <input type="submit" value="Найти"/>
     </form>
     <h3><a href="/admin/newUser">Новый пользователь</a></h3>
+    <a th:href="@{/logout}">Выйти</a>
+    <a th:href="@{/user}">Посмотреть кто ты такой</a>
     <table border="1" cellpadding="5">
         <tr>
             <th>ID</th>
@@ -37,6 +39,7 @@
             </td>
         </tr>
     </table>
+
 </div>
 </body>
 </html>
