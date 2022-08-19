@@ -4,8 +4,21 @@
     <title>Spring Security Example</title>
 </head>
 <body>
+<div align="center">
+
 <h1>Welcome to Index PAGE!</h1>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Log in</a>
+    </div>
 
-
+    <!--/*@thymesVar id="#authorization" type=""*/-->
+    <span th:text="${#authorization.expression('isAuthenticated()')} ?
+               'the user is logged in' :
+               'the user is NOT logged in'">
+    </span>
+</div>
 </body>
 </html>
