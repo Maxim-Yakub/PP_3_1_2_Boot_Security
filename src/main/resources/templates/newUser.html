@@ -14,19 +14,25 @@
         <input type="text" th:field="*{username}" id="username"/>
         <br/>
 
-        <label for="password">Введите пароль</label>
+        <label for="password">Введите пароль BC</label>
         <input type="text" th:field="*{password}" id="password"/>
         <br/>
 
         <label for="email">Введите почту</label>
         <input type="text" th:field="*{email}" id="email"/>
-
-        <label for="roles">Введите роли</label>
-        <input type="text" th:field="*{roles}" id="roles"/>
         <br/>
 
         <input type="submit" th:value="Создать"/>
     </form>
+
+    <br>
+    <a th:href="@{/logout}">Выйти</a>
+
+    <br>
+    <a th:href="@{/index}">На главную</a>
+
+    <br>
+    <a th:href="@{/user}">Посмотреть кто ты такой</a>
 </div>
 </body>
 </html>

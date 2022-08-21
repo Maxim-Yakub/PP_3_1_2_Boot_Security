@@ -14,24 +14,35 @@
         <tr>
             <th>ID</th>
             <th>Имя</th>
-            <th>Фамилия</th>
             <th>Почта</th>
+            <th>Роли</th>
             <th>Действие</th>
         </tr>
 
         <tr th:each="user, iterStat : ${users} ">
             <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getName()}"></td>
-            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getUsername()}"></td>
             <td th:text="${user.getEmail()}"></td>
+            <td >
+                <p th:each="role : ${user.getAuthorities()}" th:text="${role.getAuthority()}"/>
+            </td>
             <td>
-                <a th:href="@{/users/{id}/edit(id=${user.getId()})}" th:text="Редактировать">user</a>
-                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                <a th:href="@{admin/{id}/edit(id=${user.getId()})}" th:text="Редактировать">user</a>
+                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
                     <input type="submit" value="Удалить"/>
                 </form>
             </td>
         </tr>
     </table>
+
+    <br>
+    <a th:href="@{/logout}">Выйти</a>
+
+    <br>
+    <a th:href="@{/index}">На главную</a>
+
+    <br>
+    <a th:href="@{/user}">Посмотреть кто ты такой</a>
 </div>
 </body>
 </html>

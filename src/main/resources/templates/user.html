@@ -19,6 +19,14 @@
 
     <br>
     <a th:href="@{/logout}">Выйти</a>
+
+    <br>
+    <a th:href="@{/index}">На главную</a>
+
+    <br>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin}">На админку</a>.
+    </div>
 </div>
 </body>
 </html>
