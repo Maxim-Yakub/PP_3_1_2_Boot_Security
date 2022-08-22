@@ -1,45 +1,46 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final
-    UserRepository repository;
+    UserRepository userRepository;
+
+    private final
+    RoleRepository roleRepository;
+
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository) {
+        this.userRepository = repository;
+        this.roleRepository = roleRepository;
     }
 
     public void save (User user) {
-        repository.save(user);
+        userRepository.save(user);
     }
 
     public List<User> getAll () {
-        return (List<User>) repository.findAll();
+        return (List<User>) userRepository.findAll();
     }
 
     public User get(Long id) {
-        return repository.findById(id).get();
+        return userRepository.findById(id).get();
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Transactional
@@ -47,12 +48,12 @@ public class UserServiceImpl implements UserService {
         save(updatedUser);
     }
     public List<User> search(String keyword) {
-        return repository.search(keyword);
+        return userRepository.search(keyword);
     }
 
     @Override
     public User findByUsername(String username) {
-        return repository.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
 
@@ -73,4 +74,9 @@ public class UserServiceImpl implements UserService {
 //    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 //        return roles.stream().map(r-> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
 //    }
+
+    public List<Role> listRoles() {
+        return roleRepository.findAll();
+    }
+
 }

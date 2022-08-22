@@ -47,12 +47,12 @@ public class UserController {
     @GetMapping("/admin/newUser")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("listRoles", userService.listRoles());
         return "newUser";
     }
 
     @PostMapping("/admin")
-    public String createUser(@ModelAttribute("user") User user,
-                             @ModelAttribute("role") Role role) {
+    public String createUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin";
     }
@@ -60,6 +60,7 @@ public class UserController {
     @GetMapping("/admin/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.get(id));
+        model.addAttribute("listRoles", userService.listRoles());
         return "editUser";
     }
 
