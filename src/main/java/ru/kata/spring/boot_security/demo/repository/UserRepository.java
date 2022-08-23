@@ -16,7 +16,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
            // + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
     List<User> search(@Param("keyword") String keyword);
 
-    // спринг сам вставит имя пользователя
     User findByUsername(String username);
 
 }
