@@ -28,7 +28,7 @@
             <td th:text="${user.getUsername()}"></td>
             <td th:text="${user.getEmail()}"></td>
             <td >
-                <p th:each="role : ${user.getAuthorities()}" th:text="${role.getAuthority()}"/>
+                <p th:each="role : ${user.getAuthorities()}" th:text="${role.getName()}"/>
             </td>
             <td>
                 <a th:href="@{admin/{id}/edit(id=${user.getId()})}" th:text="Редактировать">user</a>
