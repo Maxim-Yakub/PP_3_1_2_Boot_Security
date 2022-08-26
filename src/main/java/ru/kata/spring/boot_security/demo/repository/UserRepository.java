@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.model.Role;
+//import ru.kata.spring.boot_security.demo.model.RoleDto;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -17,5 +19,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> search(@Param("keyword") String keyword);
 
     User findByUsername(String username);
+
+//    List<Role> f;
 
 }
