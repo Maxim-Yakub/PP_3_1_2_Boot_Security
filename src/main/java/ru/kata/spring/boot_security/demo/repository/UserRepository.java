@@ -4,8 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ru.kata.spring.boot_security.demo.model.Role;
-//import ru.kata.spring.boot_security.demo.model.RoleDto;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -18,8 +16,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
            // + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
     List<User> search(@Param("keyword") String keyword);
 
-    User findByUsername(String username);
-
-//    List<Role> f;
-
+    @Query(value = "SELECT user FROM User user JOIN FETCH user.roles WHERE user.username = :username")
+    User findByUsername(@Param("username") String username);
 }
