@@ -11,11 +11,12 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    @Query(value="SELECT user from User user where user.username LIKE  CONCAT('%',:keyword,'%')"
-            + "OR user.email LIKE CONCAT('%',:keyword,'%')")
-           // + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
-    List<User> search(@Param("keyword") String keyword);
-
     @Query(value = "SELECT user FROM User user JOIN FETCH user.roles WHERE user.username = :username")
     User findByUsername(@Param("username") String username);
+
+    @Query(value = "SELECT user from User user where user.username LIKE  CONCAT('%',:keyword,'%')"
+            + "OR user.email LIKE CONCAT('%',:keyword,'%')")
+        // + "OR user.lastName LIKE CONCAT('%',:keyword,'%')")
+    List<User> search(@Param("keyword") String keyword);
+
 }
